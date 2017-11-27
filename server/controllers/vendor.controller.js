@@ -25,7 +25,7 @@ export function getVendors(req, res) {
  * @returns void
  */
 export function addVendor(req, res) {
-  if (!req.body.vendor.name || !req.body.vendor.hours || !req.body.vendor.description || !req.body.vendor.location ) {
+  if (!req.body.vendor.name || !req.body.vendor.hours || !req.body.vendor.description || !req.body.vendor.latitude || !req.body.vendor.longitude ) {
     return res.status(403).end();
   }
 
@@ -35,7 +35,8 @@ export function addVendor(req, res) {
   newVendor.name = sanitizeHtml(newVendor.name);
   newVendor.hours = sanitizeHtml(newVendor.hours);
   newVendor.description = sanitizeHtml(newVendor.description);
-  newVendor.location = sanitizeHtml(newVendor.location);
+  newVendor.latitude = sanitizeHtml(newVendor.latitude);
+  newVendor.longitude = sanitizeHtml(newVendor.longitude);
 
   newVendor.cuid = cuid();
   newVendor.save((err, saved) => {

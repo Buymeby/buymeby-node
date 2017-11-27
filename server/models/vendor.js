@@ -5,7 +5,8 @@ const vendorSchema = new Schema({
   name: { type: 'String', required: true },
   hours: { type: 'String', required: true },
   description: { type: 'String', required: true },
-  location: { type: 'String', required: true },
+  latitude: { type: 'String', required: true },
+  longitude: { type: 'String', required: true },
   cuid: { type: 'String', required: true },
   dateAdded: { type: 'Date', default: Date.now, required: true },
   items: [ { type: Schema.Types.ObjectId, ref: 'Item' } ]
