@@ -9,6 +9,7 @@ const itemSchema = new Schema({
   discount_ratio: { type: 'Number', required: true },
   cuid: { type: 'String', required: true },
   dateAdded: { type: 'Date', default: Date.now, required: true },
+  category: { type: 'String', required: true },
   vendor: { type: Schema.Types.ObjectId, ref: 'Vendor' }
 });
 

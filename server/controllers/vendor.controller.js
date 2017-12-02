@@ -1,4 +1,5 @@
 import Vendor from '../models/vendor';
+import Item from '../models/item';
 import cuid from 'cuid';
 import slug from 'limax';
 import sanitizeHtml from 'sanitize-html';
@@ -18,6 +19,22 @@ export function getVendors(req, res) {
   });
 }
 
+export function getVendor(req, res) {
+  console.log(req)
+  Vendor.findOne({ cuid: req.params.cuid }).exec((err, vendor) => {
+    if (err) {
+      res.status(500).send(err);
+    }
+    Item.find({ vendor: vendor._id }).exec((err, items) => {
+      if (err) {
+        res.status(500).send(err);
+      }
+      vendor.items = items;
+      res.json({ vendor });
+    })
+  });
+}
+
 /**
  * Save a post
  * @param req
@@ -25,7 +42,11 @@ export function getVendors(req, res) {
  * @returns void
  */
 export function addVendor(req, res) {
-  if (!req.body.vendor.name || !req.body.vendor.hours || !req.body.vendor.description || !req.body.vendor.latitude || !req.body.vendor.longitude ) {
+  if (!req.body.vendor.name ||
+      !req.body.vendor.hours ||
+      !req.body.vendor.description ||
+      !req.body.vendor.latitude ||
+      !req.body.vendor.longitude ) {
     return res.status(403).end();
   }
 
